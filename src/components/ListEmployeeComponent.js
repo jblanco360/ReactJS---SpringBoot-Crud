@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
+import EmployeeService from '../services/EmployeeService';
 
 class ListEmployeeComponent extends Component {
-    render() {
-        let employees = [];
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            employees: []
+        }
+    }
+    
+
+    componentDidMount(){
+        EmployeeService.getEmployees().then((res) => {
+            this.setState({ employees: res.data});
+        });
+    }
+
+    render() {
+        
         return (
             <div>
                 <h2 className="text-center">Employees List</h2>
                 <div className="row">
-                    <table className="table table-striped table-bordered">
+                    <table className="table table-striped table-bordered table-hover">
 
                         <thead>
-                            <tr>
+                            <tr class="thead-dark">
                                 <th>Employee First Name</th>
                                 <th>Employee Last Name</th>
                                 <th>Employee Email Id</th>
@@ -21,7 +37,7 @@ class ListEmployeeComponent extends Component {
 
                         <tbody>
                             {
-                                employees.map(
+                               this.state.employees.map(
                                     employee =>
                                     <tr key={employee.id}>
                                         <td>{employee.firstName}</td>
