@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
+import Error from '../components/Error';
 
 class ListEmployeeComponent extends Component {
 
@@ -12,13 +13,20 @@ class ListEmployeeComponent extends Component {
     }
     
 
-    componentDidMount(){
-        EmployeeService.getEmployees().then((res) => {
+    async componentDidMount(){
+       
+         await EmployeeService.getEmployees().then(( res) => {
             this.setState({ employees: res.data});
         });
+    
     }
 
+   
+        
+   
     render() {
+
+        try{
         
         return (
             <div>
@@ -56,6 +64,15 @@ class ListEmployeeComponent extends Component {
             </div>
         );
     }
+catch(e){
+    console.log("Error Caught in ListEmployeeComponent");
+    return(
+        <div>
+            <Error />
+        </div>
+    );
+}
+}
 }
 
 export default ListEmployeeComponent;
