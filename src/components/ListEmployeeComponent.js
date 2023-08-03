@@ -50,7 +50,7 @@ class ListEmployeeComponent extends Component {
                                     <tr key={employee.id}>
                                         <td>{employee.firstName}</td>
                                         <td>{employee.lastName}</td>
-                                        <td>{employee.emailId}</td>
+                                        <td>{employee.emailID}</td>
                                     </tr>
                                 )
                             }
